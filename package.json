@@ -1,0 +1,37 @@
+{
+    "author": "Taylor Ertrachter",
+    "dependencies": {},
+    "keywords": [],
+    "name": "scott",
+    "pebble": {
+        "displayName": "SCOTT PILGRIM! Colour",
+        "enableMultiJS": false,
+        "messageKeys": [],
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "images/scott.png",
+                    "name": "IMAGE_BACKGROUND_PNG",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
+                    "file": "fonts/RobotoCondensed-Regular.ttf",
+                    "name": "ROBOTO_CONDENSED_16",
+                    "targetPlatforms": null,
+                    "type": "font"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "basalt"
+        ],
+        "uuid": "2b4d79ea-3abc-4d20-bb32-b1e7cd709c6a",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "1.0.0"
+}
