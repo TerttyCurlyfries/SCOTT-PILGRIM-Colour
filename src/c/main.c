@@ -15,11 +15,11 @@ static void update_time() {
   struct tm *tick_time = localtime(&temp);
 
   // Write the current hours and minutes into a buffer
-  static char buffer[] = "00:00";
+  static char buffer[] = PBL_IF_ROUND_ELSE("00:00 am","00:00");
   if(clock_is_24h_style()) {
     strftime(buffer, sizeof("00:00"), "%H:%M", tick_time);
   } else {
-    strftime(buffer, sizeof(buffer), "%I:%M", tick_time);
+    strftime(buffer, sizeof(buffer), "%I:%M %p", tick_time);
   if('0' == buffer[0]) {
     memmove(buffer, &buffer[1], sizeof(buffer)-1);
   }
@@ -43,9 +43,10 @@ static void main_window_load(Window *window) {
   // Get information about the Window
   Layer *window_layer = window_get_root_layer(window);
   GRect bounds = layer_get_bounds(window_layer);
+  window_set_background_color(window, GColorFromRGB(13,168,214));
 
   // Create GBitmap
-  s_background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND_PNG);
+  s_background_bitmap = PBL_IF_ROUND_ELSE(gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND_ROUND_PNG), gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND_PNG));
   // Create BitmapLayer to display the GBitmap
   s_background_layer = bitmap_layer_create(bounds);
   // Set the bitmap onto the layer and add to the window
@@ -53,7 +54,7 @@ static void main_window_load(Window *window) {
   layer_add_child(window_layer, bitmap_layer_get_layer(s_background_layer));
   
   // Create date TextLayer
-  s_date_layer = text_layer_create(GRect(42, 145, 144, 30));
+  s_date_layer = text_layer_create(PBL_IF_ROUND_ELSE(GRect(40, 90, 144, 30),GRect(42, 145, 144, 30)));
   text_layer_set_text_color(s_date_layer, GColorBlack);
   text_layer_set_background_color(s_date_layer, GColorClear);
   text_layer_set_text_alignment(s_date_layer, GTextAlignmentCenter);
@@ -65,7 +66,7 @@ static void main_window_load(Window *window) {
   s_top_layer = text_layer_create(GRect(44, 0, 80, 50));
   text_layer_set_text_color(s_top_layer, GColorBlack);
   text_layer_set_background_color(s_top_layer, GColorClear);
-  text_layer_set_text(s_top_layer, "IF");
+  text_layer_set_text(s_top_layer, PBL_IF_ROUND_ELSE("","IF"));
   text_layer_set_text_alignment(s_top_layer, GTextAlignmentCenter);
   text_layer_set_font(s_top_layer, s_time_font);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_top_layer));
@@ -73,7 +74,7 @@ static void main_window_load(Window *window) {
   s_middle_top_layer = text_layer_create(GRect(70, 17, 80, 50));
   text_layer_set_text_color(s_middle_top_layer, GColorBlack);
   text_layer_set_background_color(s_middle_top_layer, GColorClear);
-  text_layer_set_text(s_middle_top_layer, "HAD A");
+  text_layer_set_text(s_middle_top_layer, PBL_IF_ROUND_ELSE("", "HAD A"));
   text_layer_set_text_alignment(s_middle_top_layer, GTextAlignmentCenter);
   text_layer_set_font(s_middle_top_layer, s_time_font);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_middle_top_layer));
@@ -81,7 +82,7 @@ static void main_window_load(Window *window) {
   s_middle_middle_layer = text_layer_create(GRect(70, 32, 80, 50));
   text_layer_set_text_color(s_middle_middle_layer, GColorBlack);
   text_layer_set_background_color(s_middle_middle_layer, GColorClear);
-  text_layer_set_text(s_middle_middle_layer, "FACE, I");
+  text_layer_set_text(s_middle_middle_layer, PBL_IF_ROUND_ELSE("", "FACE, I"));
   text_layer_set_text_alignment(s_middle_middle_layer, GTextAlignmentCenter);
   text_layer_set_font(s_middle_middle_layer, s_time_font);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_middle_middle_layer));
@@ -89,7 +90,7 @@ static void main_window_load(Window *window) {
   s_middle_bottom_layer = text_layer_create(GRect(69, 48, 80, 50));
   text_layer_set_text_color(s_middle_bottom_layer, GColorBlack);
   text_layer_set_background_color(s_middle_bottom_layer, GColorClear);
-  text_layer_set_text(s_middle_bottom_layer, "WOULD");
+  text_layer_set_text(s_middle_bottom_layer, PBL_IF_ROUND_ELSE("", "WOULD"));
   text_layer_set_text_alignment(s_middle_bottom_layer, GTextAlignmentCenter);
   text_layer_set_font(s_middle_bottom_layer, s_time_font);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_middle_bottom_layer));
@@ -97,13 +98,13 @@ static void main_window_load(Window *window) {
   s_bottom_layer = text_layer_create(GRect(70, 64, 80, 50));
   text_layer_set_text_color(s_bottom_layer, GColorBlack);
   text_layer_set_background_color(s_bottom_layer, GColorClear);
-  text_layer_set_text(s_bottom_layer, "PUNCH IT!");
+  text_layer_set_text(s_bottom_layer, PBL_IF_ROUND_ELSE("", "PUNCH IT!"));
   text_layer_set_text_alignment(s_bottom_layer, GTextAlignmentCenter);
   text_layer_set_font(s_bottom_layer, s_time_font);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_bottom_layer));
   
   // Create the TextLayer with specific bounds
-  s_time_layer = text_layer_create(GRect(75, 0, 80, 50));
+  s_time_layer = text_layer_create(PBL_IF_ROUND_ELSE(GRect(73, 60, 80, 50),GRect(75, 0, 80, 50)));
   text_layer_set_background_color(s_time_layer, GColorClear);
   text_layer_set_text_color(s_time_layer, GColorBlack);
   text_layer_set_text(s_time_layer, "00:00");

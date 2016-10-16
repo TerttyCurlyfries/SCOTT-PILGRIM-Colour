@@ -11,6 +11,12 @@
         "resources": {
             "media": [
                 {
+                    "file": "images/scott_round_good.png",
+                    "name": "IMAGE_BACKGROUND_ROUND_PNG",
+                    "targetPlatforms": null,
+                    "type": "bitmap"
+                },
+                {
                     "file": "images/scott.png",
                     "name": "IMAGE_BACKGROUND_PNG",
                     "targetPlatforms": null,
@@ -26,7 +32,8 @@
         },
         "sdkVersion": "3",
         "targetPlatforms": [
-            "basalt"
+            "basalt",
+            "chalk"
         ],
         "uuid": "2b4d79ea-3abc-4d20-bb32-b1e7cd709c6a",
         "watchapp": {
